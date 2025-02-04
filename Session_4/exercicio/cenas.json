@@ -1,0 +1,32 @@
+[
+  {
+    "name": "João",
+    "age": "28",
+    "city": "Porto",
+    "email": "joao@example.com"
+  },
+  {
+    "name": "Maria",
+    "age": "34",
+    "city": "Lisboa",
+    "email": "maria@example.com"
+  },
+  {
+    "name": "Pedro",
+    "age": "22",
+    "city": "Coimbra",
+    "email": "pedro@example.com"
+  },
+  {
+    "name": "Ana",
+    "age": "30",
+    "city": "Braga",
+    "email": "ana@example.com"
+  },
+  {
+    "name": "Carlos",
+    "age": "25",
+    "city": "Madeira",
+    "email": "carlos@example.com"
+  }
+]
