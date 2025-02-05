@@ -7,19 +7,18 @@ const File_input = process.argv[2];
 const File_output = process.argv[3];
 
 try {
-    if(File_input.length() <= 0 ){
-        throw new Error(`The file ${File_input}`);
+    if (!File_input || File_input.length === 0){
+        throw new Error(`The file input ${File_input} must be data.csv `);
     }
-    if(File_output.length() <= 0 ){
-        throw new Error(`The file ${File_output}`);
+    if (!File_output || File_output.length === 0){
+        throw new Error(`The file output ${File_output} must be jsonFile.js`);
     }
     if(!fs.existsSync(File_input)){
-        throw new Error(`The file ${File_input} doesn't exist`);
+        throw new Error(`The file csv data ${File_input} doesn't exist`);
     }
     else{
         const csvData = fs.readFileSync(File_input, 'utf-8');
         const rows = csvData.split('\n');
-        const headers = rows[0].split(','); 
         const data = rows.slice(1).filter(row=> {
             const values = row.split(',');
             const age = parseInt(values[1], 10);
