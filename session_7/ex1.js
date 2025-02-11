@@ -3,7 +3,7 @@ import { writeFileSync } from 'fs';
 
 async function fetchWeather(city) {  
   try {  
-    const API_KEY = '8194a45193cec3348f9d0e9c13ded4f8';  
+    const API_KEY = '';  
     const response = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},&APPID=${API_KEY}&units=metric`);
     if (!response.ok) throw new Error(`Erro ao buscar clima: ${response.statusText}`);
     const data = await response.json();
