@@ -8,4 +8,4 @@ function findDuplicates(array_duplicado){
     return array_ordenado;
 }
 
-console.log(findDuplicates(array=[1,2,3,4,4,4,4,6,7,7]));
+console.log(findDuplicates([1,2,3,4,4,4,4,6,7,7]));
