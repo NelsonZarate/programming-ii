@@ -1,17 +1,29 @@
 const twoSum = function(nums, target) {
     console.log(nums.length);
     let sum ;
-    for(i = 0; i <= nums.length;){
+    for (let i = 0; i <= nums.length;i++){
         let currentNumber = nums[i];
         let nextNumber = nums[i+1];
-        for(j = 1; i <= nums.length;){
+        for(let j = 1; j <= nums.length;j++){
             if(sum == target)
-                return [currentNumber, nextNumber];
+                return [i, j];
             nextNumber = nums[j];
             sum = currentNumber + nextNumber;
-        }
-        j++;
-        i++;
+        }       
     }
 };
-console.log(twoSum([1,2], 3));
+console.log(twoSum([1,2,3,4,5,6], 8));
+
+
+function twoSumMap(nums,target){
+    const myMap = new Map();
+    for(let i = 0; i <= nums.length; i++){
+        let complement = target - nums[i];
+        if(myMap.has(complement))
+            return [nums[i],myMap.get(complement)];
+        myMap.set(nums[i],i);
+
+    }
+    return [];
+}
+console.log(twoSumMap([1,2,3,4,5,6], 8))
