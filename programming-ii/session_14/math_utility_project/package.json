@@ -1,0 +1,19 @@
+{
+  "name": "math_utility_project",
+  "version": "1.0.0",
+  "description": "npm modules with math functions (sum, average,median)",
+  "main": "index.js",
+  "type":"module",
+  "scripts": {
+    "test": "--test"
+  },
+  "keywords": [
+    "math",
+    "functions"
+  ],
+  "author": "Nelson Zarate",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
