@@ -1,0 +1,13 @@
+{
+  "name": "session_15",
+  "version": "1.0.0",
+  "description": "session 15, streaming",
+  "main": "index.js",
+  "scripts": {
+    "test": "--test",
+    "start":"node index.js"
+  },
+  "author": "Nelson Zarate",
+  "license": "MIT",
+  "type": "module"
+}

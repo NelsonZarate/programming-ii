@@ -1,0 +1,6 @@
+{"level":"error","message":"ValidationError "}
+{"level":"error","message":"Validation error: error is bananas"}
+{"MyMessage":"error is bananas","level":"error","message":"Caught ValidationError error is bananas","stack":"Error: error is bananas\n    at new ValidationError (/workspaces/programming-ii/session_9/tutorial/ex1.js:14:9)\n    at <anonymous> (/workspaces/programming-ii/session_9/tutorial/ex1.js:24:19)\n    at <anonymous> (native:11:43)"}
+{"level":"error","message":"ValidationError "}
+{"level":"error","message":"Validation error: error is bananas"}
+{"MyMessage":"error is bananas","level":"error","message":"Caught ValidationError error is bananas","stack":"Error: error is bananas\n    at new ValidationError (/workspaces/programming-ii/session_9/tutorial/ex1.js:14:9)\n    at <anonymous> (/workspaces/programming-ii/session_9/tutorial/ex1.js:24:19)\n    at <anonymous> (native:11:43)"}

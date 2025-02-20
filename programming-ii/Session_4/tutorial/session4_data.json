@@ -1,0 +1,17 @@
+[
+  {
+    "name": "João",
+    "age": false,
+    "city": "Porto"
+  },
+  {
+    "name": "Maria",
+    "age": false,
+    "city": "Lisboa"
+  },
+  {
+    "name": "Pedro",
+    "age": false,
+    "city": "Coimbra"
+  }
+]
