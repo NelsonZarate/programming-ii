@@ -1,0 +1,15 @@
+{
+  "name": "password_gen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js --length 12  --numbers"
+  },
+  "author": "Nelson Zarate",
+  "license": "MIT",
+  "devDependencies": {
+    "chalk": "^5.4.1"
+  },
+  "type": "module"
+}
