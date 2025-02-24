@@ -20,14 +20,14 @@ class Dog extends Animal {
 const dog = new Dog("Rex");
 console.log(dog.speak()); // Rex makes a noise. Rex barks!
 
-class Cat extends Animal{
-  constructor(name){
+class Cat extends Animal {
+  constructor(name) {
     super(name);
   }
-  static info(){
+  static info() {
     return "i am an animal class";
   }
-  speak(){
+  speak() {
     return `${super.speak()} ${this.name} meow!`;
   }
 }

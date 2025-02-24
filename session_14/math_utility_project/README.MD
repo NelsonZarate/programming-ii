@@ -8,4 +8,8 @@ A command-line tool for performing basic mathematical operations on a list of nu
 - **Average**: Calculates the average of a list of numbers.
 - **Median**: Calculates the median of a list of numbers.
 - **CLI Interface**: Easy-to-use command-line interface.
+<<<<<<< HEAD
 - **Error Handling**: Gracefully handles invalid inputs and commands
+=======
+- **Error Handling**: Gracefully handles invalid inputs and commands.
+>>>>>>> fc43b02 (WIP)
