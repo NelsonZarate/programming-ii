@@ -1,4 +1,5 @@
 import { writeFileSync, readFileSync, existsSync} from "fs";
+/** */
 export function passwordGen(argsMap) {
     const options = {
         length: 2,
@@ -8,7 +9,7 @@ export function passwordGen(argsMap) {
     };
     options.length = parseInt(options.length) || 12;
 
-    if (options.length < 2 || options.length > 100) {
+    if (options.length < 12 || options.length > 100) {
         throw new Error('Password length must be between 12 and 100 characters');
     }
 
