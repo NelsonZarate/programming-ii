@@ -57,6 +57,8 @@ try {
             }
         }
     }
+    
+    console.log("Parsed arguments:", argsMap);
     dictionary(argsMap);
 
 } catch (error) {
