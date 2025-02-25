@@ -4,7 +4,7 @@
   "description": "Dictionary ClI project with api, fetch word definitions, synonyms, antonyms, and examples.",
   "main": "src/main.js",
   "scripts": {
-    "test": "node src/main.js"
+    "test": "node src/main.js "
   },
   "keywords": [
     "Dictionary",
@@ -14,7 +14,10 @@
   "license": "MIT",
   "type": "module",
   "dependencies": {
+    "boxen": "^8.0.1",
     "chalk": "^5.4.1",
-    "node-fetch": "^3.3.2"
+    "cli-table3": "^0.6.5",
+    "node-fetch": "^3.3.2",
+    "ora": "^8.2.0"
   }
 }

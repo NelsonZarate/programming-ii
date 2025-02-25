@@ -5,13 +5,13 @@
     "version": "0.2.0",
     "configurations": [
     {
-        "name": "Launch Program",
+        "name": "Launch teste",
         "program": "src/main.js",
         "request": "launch",
         "skipFiles": [
             "<node_internals>/**"
         ],
-        "args": ["--wotd"],
+        "args": ["--word" ,"hello" ,"--type", "verb"],
         "type": "node"
     },
         {
