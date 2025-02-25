@@ -6,6 +6,7 @@ export function validateArgs(arg){
     }
     return true;
 }
+
 export function printHelp() {
     console.log(chalk.blue.bold("\n📖 Dictionary CLI - A Simple Word Lookup Tool\n"));
     console.log(chalk.green("Usage:"));
