@@ -1,11 +1,13 @@
-import { validateArgs, printHelp } from "./helpers.js";
+import { validateArgs, printHelp, removeAnsiCodes } from "./helpers.js";
 import chalk from "chalk";
 import { getWordOfTheDay } from "./wotd.js";
 import { dictionary } from "./dictionary.js";
+import fs from "fs";
 
-const Wotd = async function main() {
+async function Wotd() {
     const wotd = await getWordOfTheDay();
     console.log(`📚 Word of the Day: ${wotd}`);
+    return wotd;
 }
 
 const args = process.argv.slice(2);
@@ -24,9 +26,8 @@ try {
     for (let i = 0; i < args.length; i++) {
         const currentArg = args[i];
 
-        // Handle flags starting with "--"
         if (currentArg.startsWith('--')) {
-            const key = currentArg.slice(2);  // Remove '--' to get the key name
+            const key = currentArg.slice(2);
             const validArgs = ["word", "type", "output"];
 
             if (key === 'help') {
@@ -34,33 +35,42 @@ try {
                 process.exit(0);
             }
 
-            // Handle WOTD (Word of the Day)
             if (key === 'wotd') {
-                argsMap[key] = await Wotd();  // Call WOTD function and store result
-                i++; // Skip the next argument as it's already handled
+                argsMap["word"] = await Wotd();
+                continue; 
             }
-            else if (!validArgs.includes(key)) {
+
+            if (key === 'output') {
+                argsMap[key] = args[i + 1];
+                i++; 
+                continue;
+            }
+
+            if (!validArgs.includes(key)) {
                 throw new Error(chalk.red('Invalid argument. Try using --help for assistance.'));
             }
 
-            // Handle valid flags and their corresponding values
-            if (validArgs.includes(key)) {
-                // Ensure the next argument exists and is a valid value
-                const nextArg = args[i + 1];
-                if (!nextArg || nextArg.startsWith('--')) {
-                    throw new Error(chalk.red(`Missing value for --${key} argument`));
-                }
-
-                validateArgs(nextArg);  // Validate the argument value
-                argsMap[key] = nextArg;  // Store the value in argsMap
-                i++;  // Skip the next argument since it's already processed
+            const nextArg = args[i + 1];
+            if (!nextArg || nextArg.startsWith('--')) {
+                throw new Error(chalk.red(`Missing value for --${key} argument`));
             }
+
+            validateArgs(nextArg);
+            argsMap[key] = nextArg;
+            i++;
         }
     }
-    
-    console.log("Parsed arguments:", argsMap);
-    dictionary(argsMap);
 
+    const outputPath = argsMap.output ? argsMap.output : false;
+    const dictionaryData = await dictionary(argsMap);
+
+    if (outputPath) {
+        const cleanOutput = removeAnsiCodes(dictionaryData);
+        fs.writeFileSync(outputPath, cleanOutput);
+        console.log(chalk.green(`✅ Output saved to ${outputPath}`));
+    } else {
+        console.log(dictionaryData);
+    }
 } catch (error) {
     console.error(chalk.red('Error:'), error.message);
     process.exit(1);
