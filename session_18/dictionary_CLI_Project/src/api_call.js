@@ -1,4 +1,9 @@
 import fetch from 'node-fetch';
+/**
+ * 
+ * @param {String} word 
+ * @returns 
+ */
 export async function getWordDefinition(word) {
     const url = `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`;
   
