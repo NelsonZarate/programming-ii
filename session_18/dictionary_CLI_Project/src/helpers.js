@@ -1,13 +1,19 @@
 import chalk from "chalk";
 import boxen from "boxen";
-
+/**
+ * 
+ * @param {String} arg 
+ * @returns {Boolean}
+ */
 export function validateArgs(arg){
     if (!arg || typeof(arg) != "string") {
         throw new Error(chalk.red(`${arg} must be a word`));
     }
     return true;
 }
-
+/**
+ * @returns {String} 
+ */
 export function printHelp() {
     const helpText = `
     ${chalk.blue.bold("📖 Dictionary CLI - A Simple Word Lookup Tool")}
@@ -40,11 +46,15 @@ export function printHelp() {
         borderColor: "cyan",
     };
 
-    // Display the help text in a box
     console.log(boxen(helpText, boxOptions));
     process.exit(1);
 }
 
+/**
+ * 
+ * @param {String} str 
+ * @returns 
+ */
 export function removeAnsiCodes(str) {
     return str.replace(/\x1b\[([0-9]{1,2}(?:;[0-9]{1,2})?)?[m|K]/g, '');
 }

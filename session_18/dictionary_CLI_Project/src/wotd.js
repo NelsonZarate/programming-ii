@@ -6,7 +6,7 @@ const WOTD_FILE = path.join(process.cwd(), "wotd.json");
 
 /**
  * Fetches a random word from the Random Word API.
- * @returns {Promise<string>} - A random word.
+ * @returns {string} - A random word.
  */
 async function fetchRandomWord() {
     const response = await fetch("https://random-word-api.herokuapp.com/word?number=1");
@@ -19,7 +19,7 @@ async function fetchRandomWord() {
 
 /**
  * Fetches and stores a word of the day.
- * @returns {Promise<string>} - The word of the day.
+ * @returns {string} - The word of the day.
  */
 export async function getWordOfTheDay() {
     if (fs.existsSync(WOTD_FILE)) {

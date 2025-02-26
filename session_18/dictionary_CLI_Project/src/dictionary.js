@@ -4,6 +4,12 @@ import chalk from "chalk";
 import boxen from "boxen";
 import ora from "ora";
 
+/**
+ * 
+ * @param {String} text 
+ * @param {Number} width 
+ * @returns {String}
+ */
 function wrapText(text, width) {
     const wrappedText = [];
     let currentLine = '';
@@ -23,6 +29,12 @@ function wrapText(text, width) {
     return wrappedText.join('\n');
 }
 
+/**
+ * 
+ * @param {Map} argsMap 
+ * @returns {string} word definition
+ * 
+ */
 export async function dictionary(argsMap) {
     if (!argsMap.word) {
         argsMap.word = "hello";
