@@ -1,4 +1,5 @@
 import chalk from "chalk";
+import boxen from "boxen";
 
 export function validateArgs(arg){
     if (!arg || typeof(arg) != "string") {
@@ -8,25 +9,42 @@ export function validateArgs(arg){
 }
 
 export function printHelp() {
-    console.log(chalk.blue.bold("\n📖 Dictionary CLI - A Simple Word Lookup Tool\n"));
-    console.log(chalk.green("Usage:"));
-    console.log("  node dictionary.js --word=<word> [options]");
-    console.log("  node dictionary.js --wotd");
-    console.log("  node dictionary.js --help\n");
+    const helpText = `
+    ${chalk.blue.bold("📖 Dictionary CLI - A Simple Word Lookup Tool")}
 
-    console.log(chalk.green("Options:"));
-    console.log("  --word <word>     Look up a word’s definition, synonyms, antonyms, and examples.");
-    console.log("  --type <type>     Filter results by word type (e.g., noun, verb).");
-    console.log("  --output <file>   Save the results to a specified file (JSON or TXT).");
-    console.log("  --wotd           Get a random 'Word of the Day'.");
-    console.log("  --help           Show this help menu.\n");
+    ${chalk.green("Usage:")}
+    node dictionary.js --word=<word> [options]
+    node dictionary.js --wotd
+    node dictionary.js --help
 
-    console.log(chalk.green("Examples:"));
-    console.log("  node dictionary.js --word=serendipity");
-    console.log("  node dictionary.js --word=serendipity --type=noun");
-    console.log("  node dictionary.js --word=serendipity --output=result.txt");
-    console.log("  node dictionary.js --wotd\n");
+    ${chalk.green("Options:")}
+    --word <word>     Look up a word’s definition, synonyms, antonyms, and examples.
+    --type <type>     Filter results by word type (e.g., noun, verb).
+    --output <file>   Save the results to a specified file (JSON or TXT).
+    --wotd           Get a random 'Word of the Day'.
+    --help           Show this help menu.
 
-    console.log(chalk.blueBright("📚 Enhance your vocabulary with this CLI dictionary tool!\n"));
+    ${chalk.green("Examples:")}
+    npm run dictionary -- --word serendipity
+    npm run dictionary -- --word serendipity --type noun
+    npm run dictionary -- --word serendipity --output result.txt
+    npm run dictionary -- --wotd
+
+    ${chalk.blueBright("📚 Enhance your vocabulary with this CLI dictionary tool!")}
+    `;
+
+    const boxOptions = {
+        padding: 1,
+        margin: 1,
+        borderStyle: "round",
+        borderColor: "cyan",
+    };
+
+    // Display the help text in a box
+    console.log(boxen(helpText, boxOptions));
     process.exit(1);
+}
+
+export function removeAnsiCodes(str) {
+    return str.replace(/\x1b\[([0-9]{1,2}(?:;[0-9]{1,2})?)?[m|K]/g, '');
 }
