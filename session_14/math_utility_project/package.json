@@ -7,11 +7,7 @@
   "scripts": {
     "test": "--test"
   },
-<<<<<<< HEAD
-  "keywords":[
-=======
   "keywords": [
->>>>>>> fc43b02 (WIP)
     "math",
     "functions"
   ],
