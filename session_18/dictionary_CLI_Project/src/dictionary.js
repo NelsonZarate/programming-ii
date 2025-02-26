@@ -4,73 +4,105 @@ import chalk from "chalk";
 import boxen from "boxen";
 import ora from "ora";
 
+function wrapText(text, width) {
+    const wrappedText = [];
+    let currentLine = '';
+
+    text.split(' ').forEach(word => {
+        if ((currentLine + word).length > width) {
+            wrappedText.push(currentLine.trim());
+            currentLine = '';
+        }
+        currentLine += word + ' ';
+    });
+
+    if (currentLine.trim()) {
+        wrappedText.push(currentLine.trim());
+    }
+
+    return wrappedText.join('\n');
+}
+
 export async function dictionary(argsMap) {
-    // Default word if not provided
     if (!argsMap.word) {
         argsMap.word = "hello";
     }
 
-    const spinner = ora(chalk.cyan(`Searching for "${argsMap.word}"...`)).start();
+    const spinner = ora(chalk.cyan(`🔍 Searching for "${argsMap.word}"...`)).start();
+    let output = "";
 
     try {
         let data = await getWordDefinition(argsMap.word);
         spinner.stop();
 
         if (!data || data.length === 0) {
-            console.log(chalk.red(`❌ No meanings found for: "${argsMap.word}"`));
-            return;
+            output += chalk.red(`❌ No meanings found for: "${argsMap.word}"\n`);
+            return output;
         }
 
-        let meanings = data[0].meanings;
-        let wordTitle = chalk.blue.bold(`📖 Word ${argsMap.word.toUpperCase()}`);
-        let phonetics = data[0].phonetics.find(p => p.text)?.text || "N/A";
+        let wordData = data[0];
+        let meanings = wordData.meanings;
+        let wordTitle = chalk.blue.bold(`📖 Word: ${argsMap.word.toUpperCase()}`);
+        let phonetics = wordData.phonetics.find(p => p.text);
+        phonetics = phonetics ? phonetics.text : "N/A";
 
-        console.log(boxen(
+        output += boxen(
             `${wordTitle}\n🔊 Pronunciation: ${chalk.yellow(phonetics)}`,
             { padding: 1, margin: 1, borderStyle: "round" }
-        ));
+        ) + "\n";
 
-        // Initialize table
-        let table = new Table({
+        const terminalWidth = process.stdout.columns || 80;
+        const table = new Table({
             head: [chalk.blue("Type"), chalk.green("Definition")],
-            colWidths: [15, 60],
+            colWidths: [15, terminalWidth - 20],
+            wordWrap: true,
         });
 
-        if (argsMap.type) {
-            // Filter meanings by type
-            let filteredMeanings = meanings.filter(m => m.partOfSpeech === argsMap.type);
-            
-            if (filteredMeanings.length === 0) {
-                console.log(chalk.red(`❌ No definitions found for "${argsMap.word}" as a "${argsMap.type}"`));
-                return;
+        let hasResults = false;
+
+        meanings.forEach(meaning => {
+            meaning.definitions.forEach(def => {
+                const wrappedDefinition = wrapText(def.definition, terminalWidth - 20);
+                table.push([meaning.partOfSpeech, wrappedDefinition]);
+                hasResults = true;
+            });
+        });
+
+        if (!hasResults) {
+            output += chalk.red(`❌ No definitions found for "${argsMap.word}"\n`);
+            return output;
+        }
+
+        output += table.toString() + "\n";
+
+        meanings.forEach(meaning => {
+            meaning.definitions.forEach(def => {
+                let example = def.example || "No example available.";
+                output += chalk.yellow.bold("\n📌 Example: ") + chalk.yellow(example) + "\n";
+            });
+        });
+
+        meanings.forEach(meaning => {
+            let synonyms = meaning.synonyms || [];
+            if (synonyms.length > 0) {
+                output += chalk.magenta.bold("\n🔗 Synonyms: ") + chalk.magenta(synonyms.join(", ")) + "\n";
             }
+        });
 
-            filteredMeanings.forEach(meaning => {
-                table.push([meaning.partOfSpeech, meaning.definitions[0].definition]);
-            });
-        } else {
-            // Display all meanings
-            meanings.forEach(meaning => {
-                table.push([meaning.partOfSpeech, meaning.definitions[0].definition]);
-            });
-        }
+        meanings.forEach(meaning => {
+            let antonyms = meaning.antonyms || [];
+            if (antonyms.length > 0) {
+                output += chalk.red.bold("\n❌ Antonyms: ") + chalk.red(antonyms.join(", ")) + "\n";
+            }
+        });
 
-        console.log(table.toString());
+        output += chalk.blueBright("\n📚 Enhance your vocabulary with this CLI dictionary tool!\n");
+        output += chalk.blueBright(`Source: ${wordData.sourceUrls[0]}\n`);
 
-        // Show example sentences
-        let example = meanings[0]?.definitions[0]?.example || "No example available.";
-        console.log(chalk.yellow.bold("\n📌 Example: ") + chalk.yellow(example));
-
-        // Show synonyms if available
-        let synonyms = meanings[0]?.synonyms || [];
-        if (synonyms.length > 0) {
-            console.log(chalk.magenta.bold("\n🔗 Synonyms: ") + chalk.magenta(synonyms.join(", ")));
-        }
-
-        console.log(chalk.blueBright("\n📚 Enhance your vocabulary with this CLI dictionary tool!"));
-
+        return output; 
     } catch (error) {
         spinner.stop();
-        console.log(chalk.red("❌ Error fetching definition:"), error);
+        output += chalk.red("❌ Error fetching definition:") + " " + error.message + "\n";
+        return output;
     }
 }
