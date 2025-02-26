@@ -11,7 +11,7 @@
         "skipFiles": [
             "<node_internals>/**"
         ],
-        "args": ["--word" ,"hello" ,"--type", "verb"],
+        "args": ["--word" ,"hello" ,"--type", "verb","--output", "hello.json"],
         "type": "node"
     },
         {

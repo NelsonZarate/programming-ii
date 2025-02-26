@@ -4,7 +4,8 @@
   "description": "Dictionary ClI project with api, fetch word definitions, synonyms, antonyms, and examples.",
   "main": "src/main.js",
   "scripts": {
-    "test": "node src/main.js "
+    "test": "node src/main.js",
+    "dictionary": "node src/main.js "
   },
   "keywords": [
     "Dictionary",
