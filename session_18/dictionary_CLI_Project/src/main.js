@@ -2,7 +2,12 @@ import { validateArgs, printHelp, removeAnsiCodes } from "./helpers.js";
 import chalk from "chalk";
 import { getWordOfTheDay } from "./wotd.js";
 import { dictionary } from "./dictionary.js";
-import fs from "fs";
+import fs from "node:fs";
+
+/**
+ * 
+ * @returns Word Of The Day
+ */
 
 async function Wotd() {
     const wotd = await getWordOfTheDay();
@@ -12,6 +17,8 @@ async function Wotd() {
 
 const args = process.argv.slice(2);
 const argsMap = {};
+
+
 
 try {
     const invalidFlags = args.some(arg => {
